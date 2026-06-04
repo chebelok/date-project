@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кое-что важное для тебя... 💕</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Pacifico&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+  <!-- Animated background hearts -->
+  <div class="heart-background" id="heart-bg"></div>
+
+  <main class="app-container">
+    <!-- Screen 1: Invitation -->
+    <section class="screen active" id="screen-invite">
+      <div class="card">
+        <div class="heart-icon">💖</div>
+        <h1 class="font-cute">Привет!</h1>
+        <p class="description">У меня есть к тебе один очень важный вопрос...</p>
+        <h2 class="question">Пойдешь со мной на свидание?</h2>
+        <div class="buttons-container">
+          <button class="btn btn-yes" id="btn-yes">Да! 😍</button>
+          <button class="btn btn-no" id="btn-no">Нет 😢</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 2: Activity Selection -->
+    <section class="screen" id="screen-activity">
+      <div class="card">
+        <h2 class="screen-title font-cute">Ураааа!🎉</h2>
+        <p class="description">Выбери, как мы проведем это время:</p>
+        
+        <div class="activity-grid">
+          <div class="activity-card" data-activity="Прогулка">
+            <div class="activity-media">
+              <img th:src="@{/images/}" class="activity-gif" alt="Прогулка" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+              <span class="activity-emoji">🌳</span>
+            </div>
+            <h3>Прогулка</h3>
+            <p>Будем много и долго гулять)</p>
+          </div>
+          <div class="activity-card" data-activity="Поход в кино">
+            <div class="activity-media">
+              <img th:src="@{/images/movie.gif}" class="activity-gif" alt="Поход в кино" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+              <span class="activity-emoji">🎬</span>
+            </div>
+            <h3>Поход в кино</h3>
+            <p>Посмотрим интересный фильм вместе</p>
+          </div>
+          <div class="activity-card" data-activity="Поход в кафе">
+            <div class="activity-media">
+              <img th:src="@{/images/cafe.gif}" class="activity-gif" alt="Поход в кафе" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+              <span class="activity-emoji">☕</span>
+            </div>
+            <h3>Поход в кафе</h3>
+            <p>На чай? На кофе? На дессертик?</p>
+          </div>
+          <div class="activity-card" data-activity="Пикник">
+            <div class="activity-media">
+              <img th:src="@{/images/picnic.gif}" class="activity-gif" alt="Пикник" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+              <span class="activity-emoji">🧺</span>
+            </div>
+            <h3>Пикник</h3>
+            <p>Плед, вкусняшки и природа</p>
+          </div>
+          <div class="activity-card" data-activity="Бассейн">
+            <div class="activity-media">
+              <img th:src="@{/images/concert.gif}" class="activity-gif" alt="Бассейн" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+              <span class="activity-emoji">⛱️</span>
+            </div>
+            <h3>Бассейн</h3>
+            <p>Будем плавать, тонуть и веселиться)</p>
+          </div>
+          <div class="activity-card" data-activity="Каяк">
+            <div class="activity-media">
+              <img th:src="@{/images/attractions.gif}" class="activity-gif" alt="Каяк" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+              <span class="activity-emoji">🛶</span>
+            </div>
+            <h3>Каяки</h3>
+            <p>Покатаемся на каяке, пока не перевернемся)</p>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="btn-activity-next" disabled>Продолжить ➡️</button>
+      </div>
+    </section>
+
+    <!-- Screen 3: Date & Time Picker -->
+    <section class="screen" id="screen-datetime">
+      <div class="card">
+        <h2 class="screen-title font-cute">Отличный выбор! 🗓️</h2>
+        <p class="description">Давай выберем удобную дату и время:</p>
+
+        <form class="datetime-form" id="datetime-form" onsubmit="return false;">
+          <div class="input-group">
+            <label for="date-input">Выберите дату:</label>
+            <input type="date" id="date-input" required>
+          </div>
+          <div class="input-group">
+            <label>Выберите время:</label>
+            <div class="time-picker-container" id="time-slots">
+              <!-- Time slots generated by JS -->
+            </div>
+            <input type="hidden" id="time-input" required>
+          </div>
+          
+          <button type="submit" class="btn btn-submit" id="btn-submit-date">Запланировать встречу! 💞</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Screen 4: Success Screen -->
+    <section class="screen" id="screen-success">
+      <div class="card success-card">
+        <h2 class="screen-title font-cute text-gradient">Это будет потрясающе! ✨</h2>
+        <p class="success-message">Встреча успешно запланирована! Жду с нетерпением!</p>
+        
+        <div class="summary-box">
+          <h3>Детали свидания:</h3>
+          <p>📍 <strong>План:</strong> <span id="summary-activity"></span></p>
+          <p>📅 <strong>Дата:</strong> <span id="summary-date"></span></p>
+          <p>⏰ <strong>Время:</strong> <span id="summary-time"></span></p>
+        </div>
+
+        <div class="image-wrapper">
+          <img th:src="@{/images/cat-cute.gif}" alt="Happy couple illustration" class="cute-image" onerror="this.src='/images/happy_couple.png'; this.onerror=null;">
+        </div>
+
+        <p class="wishes font-cute">Хорошего дня! 💕</p>
+      </div>
+    </section>
+
+    <!-- Screen 5: Sad/Rejection Screen -->
+    <section class="screen" id="screen-sad">
+      <div class="card sad-card">
+        <h2 class="screen-title font-cute">Ну как же так... 💔</h2>
+        <p class="description">Ты нажала "Нет" целых 6 раз...</p>
+        
+        <div class="image-wrapper">
+          <img th:src="@{/images/gosling-sad.gif}" alt="Sad kitten illustration" class="cute-image" onerror="this.src='/images/sad_kitten.png'; this.onerror=null;">
+        </div>
+
+        <p class="sad-text">Может быть, передумаешь и попробуешь еще раз?</p>
+        <button class="btn btn-retry" id="btn-retry">Попробовать снова 🥺</button>
+      </div>
+    </section>
+  </main>
+
+  <script th:src="@{/app.js}"></script>
+</body>
+</html>
